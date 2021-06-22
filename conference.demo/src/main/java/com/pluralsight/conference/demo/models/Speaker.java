@@ -1,10 +1,13 @@
 package com.pluralsight.conference.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "speakers")
 @Entity(name = "speakers")
 public class Speaker {
@@ -23,8 +26,9 @@ public class Speaker {
     private byte[] speaker_photo;
 
     @ManyToMany(mappedBy = "speakers",
-    cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL)
 
+    @JsonIgnore
     private List<Session> sessions;
 
     public Speaker() {

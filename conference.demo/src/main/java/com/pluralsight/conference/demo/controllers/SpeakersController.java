@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/vi/speakers")
-public class SpeakerController {
+@RequestMapping("/api/v1/speakers")
+public class SpeakersController {
     private final SpeakerRepository speakerRepository;
 
-    public SpeakerController(SpeakerRepository speakerRepository) {
+    public SpeakersController(SpeakerRepository speakerRepository) {
         this.speakerRepository = speakerRepository;
     }
 
