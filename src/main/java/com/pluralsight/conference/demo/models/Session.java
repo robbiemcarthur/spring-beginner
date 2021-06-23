@@ -1,5 +1,6 @@
 package com.pluralsight.conference.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.annotation.Generated;
@@ -16,7 +17,7 @@ public class Session {
     private Integer session_length;
     private String session_description;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "session_speakers",
             joinColumns = @JoinColumn(name = "session_id"),
