@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
+// TODO: Look up auto configuration files, similar to c# class libs - JARs with helper modules etc
 @Configuration
 public class PersistenceConfiguration {
 
