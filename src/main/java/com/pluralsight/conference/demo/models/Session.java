@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "sessions")
 @Entity(name = "sessions")
 public class Session {
     @Id
@@ -17,7 +18,13 @@ public class Session {
     private Integer session_length;
     private String session_description;
 
-    @ManyToMany
+    @ManyToMany(cascade =
+            {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            })
     @JoinTable(
             name = "session_speakers",
             joinColumns = @JoinColumn(name = "session_id"),

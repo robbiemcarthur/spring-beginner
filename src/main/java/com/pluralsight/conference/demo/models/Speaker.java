@@ -26,7 +26,12 @@ public class Speaker {
     private byte[] speaker_photo;
 
     @ManyToMany(mappedBy = "speakers",
-            cascade = CascadeType.ALL)
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            })
 
     @JsonIgnore
     private List<Session> sessions;
