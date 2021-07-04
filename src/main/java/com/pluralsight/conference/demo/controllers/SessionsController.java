@@ -2,20 +2,16 @@ package com.pluralsight.conference.demo.controllers;
 
 import com.pluralsight.conference.demo.models.Session;
 import com.pluralsight.conference.demo.repositories.SessionRepository;
-import io.swagger.models.Response;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
-
-import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/sessions")
@@ -35,6 +31,10 @@ public class SessionsController {
     @GetMapping
     @RequestMapping("{id}")
     public ResponseEntity<Session> get(@PathVariable Long id){
+        Optional<Session> session = sessionRepository.findById(id);
+
+        if(!session.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Session with %1$s not found", id));
+
         return ResponseEntity.ok(sessionRepository.getById(id));
     }
 
