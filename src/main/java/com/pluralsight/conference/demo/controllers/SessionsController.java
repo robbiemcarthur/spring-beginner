@@ -3,6 +3,7 @@ package com.pluralsight.conference.demo.controllers;
 import com.pluralsight.conference.demo.models.Session;
 import com.pluralsight.conference.demo.repositories.SessionRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,8 @@ public class SessionsController {
     public ResponseEntity<Session> get(@PathVariable Long id){
         Optional<Session> session = sessionRepository.findById(id);
 
-        if(!session.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Session with %1$s not found", id));
+        SpelExpressionParser exp = new SpelExpressionParser();
+        if(!session.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, (String) exp.parseExpression("'Session with ID #id not found'").getValue());
 
         return ResponseEntity.ok(sessionRepository.getById(id));
     }
